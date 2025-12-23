@@ -10,6 +10,10 @@ app.get("/", (req, res) => {
   res.send("Resume Analyzer Backend Running");
 });
 
+const uploadRoutes = require("./routes/uploadRoutes");
+app.use("/api", uploadRoutes);
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
