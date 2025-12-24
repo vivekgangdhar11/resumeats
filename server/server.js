@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const analysisRoutes = require("./routes/analysisRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -12,6 +13,7 @@ app.get("/", (req, res) => {
 
 const uploadRoutes = require("./routes/uploadRoutes");
 app.use("/api", uploadRoutes);
+app.use("/api", analysisRoutes);
 
 
 const PORT = process.env.PORT || 5000;
