@@ -35,12 +35,18 @@ function UploadResume({ onResult }) {
 
       // 2️⃣ Analyze resume
       console.log("🔄 Analyzing resume...");
-      const analysisRes = await axios.post(
-        "http://localhost:5000/api/analyze",
-        {
-          resumeText: uploadRes.data.extractedText,
-        }
-      );
+      const token = localStorage.getItem("token");
+
+const analysisRes = await axios.post(
+  "http://localhost:5000/api/analyze",
+  { resumeText: uploadRes.data.extractedText },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
+
 
       console.log("✅ Analysis complete:", analysisRes.data);
       onResult(analysisRes.data);

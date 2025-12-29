@@ -1,5 +1,6 @@
 const calculateATSScore = require("../utils/atsScorer");
 const analyzeResumeWithAI = require("../utils/aiAnalyzer");
+const ResumeAnalysis = require("../models/ResumeAnalysis");
 
 exports.analyzeResume = async (req, res) => {
   try {
@@ -31,6 +32,12 @@ exports.analyzeResume = async (req, res) => {
       ruleBasedSuggestions: ruleBased.suggestions,
       aiFeedback,
     });
+    await ResumeAnalysis.create({
+  userId: req.userId,
+  atsScore: ruleBased.atsScore,
+  suggestions: ruleBased.suggestions,
+  aiFeedback
+});
   } catch (error) {
     console.error("❌ Analysis Error:", error.message);
     console.error("❌ Full Error:", error);
